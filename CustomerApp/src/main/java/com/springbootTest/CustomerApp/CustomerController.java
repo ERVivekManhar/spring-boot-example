@@ -15,8 +15,13 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/customer/v1")
 public class CustomerController {
-    @Autowired
-    private CustomerService customerService;
+    //@Autowired
+    private final CustomerService customerService;
+
+    public CustomerController(@Autowired CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
     @GetMapping("/{customerId}")
     public ResponseEntity<Customer> getCustomer(@PathVariable("customerId") UUID customerId){
         return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
